@@ -12,7 +12,7 @@ MAX=( $(awk -F "[- ]" '{ print $2 }' $1) )
 CHARS=( $(awk -F "[: ]" '{ print $2 }' $1) )
 
 for i in "${!CHARS[@]}"; do
-    COUNT=$(echo -n "${LINE_ARRAY[i]}" | sed "s/[^${CHARS[$i]}]//g" | wc -c)
+    COUNT=$(echo -n "${LINE_ARRAY[i]//[^${CHARS[$i]}]}" | wc -c)
     if (( (COUNT - 1) >= MIN[i] && (COUNT - 1) <= MAX[i] )) ; then
 	(( COUNTER++ ))
     fi	
